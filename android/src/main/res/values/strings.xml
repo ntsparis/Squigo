@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">Squigo</string>
+  <string name="widget_description">Track a habit and tap today\'s square to mark it done.</string>
+</resources>

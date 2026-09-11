@@ -1,0 +1,41 @@
+CREATE TABLE habitEntity (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  emoji TEXT,
+  color TEXT NOT NULL,
+  createdAt TEXT NOT NULL,
+  archived INTEGER NOT NULL DEFAULT 0,
+  sortOrder INTEGER NOT NULL DEFAULT 0,
+  type TEXT NOT NULL DEFAULT 'CHECK',
+  targetCount INTEGER NOT NULL DEFAULT 1,
+  unitLabel TEXT
+);
+
+insertHabit:
+INSERT INTO habitEntity (name, emoji, color, createdAt, archived, sortOrder, type, targetCount, unitLabel)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateHabit:
+UPDATE habitEntity
+SET name = :name, emoji = :emoji, color = :color, type = :type, targetCount = :targetCount, unitLabel = :unitLabel
+WHERE id = :id;
+
+setArchived:
+UPDATE habitEntity
+SET archived = :archived
+WHERE id = :id;
+
+deleteHabit:
+DELETE FROM habitEntity WHERE id = :id;
+
+selectAllHabits:
+SELECT * FROM habitEntity ORDER BY sortOrder ASC, id ASC;
+
+selectActiveHabits:
+SELECT * FROM habitEntity WHERE archived = 0 ORDER BY sortOrder ASC, id ASC;
+
+selectHabitById:
+SELECT * FROM habitEntity WHERE id = :id;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

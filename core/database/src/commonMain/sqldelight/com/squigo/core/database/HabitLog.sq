@@ -1,0 +1,23 @@
+CREATE TABLE habitLogEntity (
+  habitId INTEGER NOT NULL,
+  date TEXT NOT NULL,
+  count INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (habitId, date),
+  FOREIGN KEY (habitId) REFERENCES habitEntity(id) ON DELETE CASCADE
+);
+
+upsertLog:
+INSERT OR REPLACE INTO habitLogEntity (habitId, date, count)
+VALUES (:habitId, :date, :count);
+
+deleteLog:
+DELETE FROM habitLogEntity WHERE habitId = :habitId AND date = :date;
+
+selectLogsForHabit:
+SELECT * FROM habitLogEntity WHERE habitId = :habitId AND count > 0 ORDER BY date ASC;
+
+selectLogForDate:
+SELECT * FROM habitLogEntity WHERE habitId = :habitId AND date = :date;
+
+selectLogsForHabits:
+SELECT * FROM habitLogEntity WHERE habitId IN :habitIds AND count > 0;
