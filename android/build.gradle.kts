@@ -40,5 +40,7 @@ dependencies {
   implementation(libs.glance.appwidget)
   implementation(libs.glance.material3)
 
+  implementation(libs.androidx.work.runtime.ktx)
+
   implementation(libs.kotlinx.datetime)
 }
